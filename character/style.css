@@ -1,0 +1,174 @@
+body {
+  background-color: #ebff9a;
+}
+
+@keyframes itemMoving {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mandarin {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  background: url(./img/group.svg) no-repeat 45% 45%;
+  background-size: contain;
+}
+
+.mandarin .ear {
+  background-color: #17ae38;
+  z-index: 2;
+}
+
+.mandarin .face {
+  background-color: #ff9a24;
+  border: 10px solid #352600;
+  width: 330px;
+  height: 240px;
+}
+
+.ear.left {
+  width: 90px;
+  height: 130px;
+  border: 8px solid #352600;
+  border-radius: 100px 0px;
+  transform: matrix(-0.95, 0.32, 0.32, 0.95, 0, 0);
+  position: absolute;
+  left: 32%;
+  top: 140px;
+}
+
+.ear.right {
+  width: 60px;
+  height: 74px;
+  border: 7px solid #352600;
+  border-radius: 100px 0px;
+  transform: rotate(16.46deg);
+  position: absolute;
+  left: 52%;
+  top: 192px;
+}
+
+.face {
+  top: 62%;
+  left: 50%;
+  z-index: 1;
+  border-radius: 200px;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  /* overflow: hidden; */
+}
+
+.face .eye {
+  border-radius: 50%;
+}
+
+.face .eye.left {
+  background: #ffffff;
+  position: absolute;
+  width: 58px;
+  height: 49px;
+  left: 20%;
+  top: 30%;
+
+  border: 8px solid #352600;
+  border-radius: 200px 200px 130px 130px;
+}
+
+.face .eye.right {
+  background: #ffffff;
+  position: absolute;
+  width: 58px;
+  height: 49px;
+  right: 20%;
+  top: 30%;
+
+  border: 8px solid #352600;
+  border-radius: 200px 200px 130px 130px;
+}
+
+.face .eyebrow.left {
+  position: absolute;
+  width: 55px;
+  height: 9px;
+  left: 28%;
+  top: 20%;
+
+  background: #352600;
+  border-radius: 20px;
+  transform: matrix(0.89, 0.45, -0.51, 0.86, 0, 0);
+}
+
+.face .eyebrow.right {
+  position: absolute;
+  width: 55px;
+  height: 9px;
+  right: 28%;
+  top: 25%;
+
+  background: #352600;
+  border-radius: 20px;
+  transform: matrix(-0.96, 0.27, 0.33, 0.94, 0, 0);
+}
+
+.face .mini {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  padding-top: 10px;
+}
+
+.face .mini .minieye {
+  background-color: #352600;
+}
+
+.face .mini .minieye.left {
+  width: 26px;
+  height: 27px;
+  margin-right: 70px;
+  border-radius: 200px 200px 100px 100px;
+}
+
+.face .mini .minieye.right {
+  width: 26px;
+  height: 27px;
+  border-radius: 200px 200px 100px 100px;
+}
+
+.face .mouth {
+  width: 173px;
+  height: 50px;
+  position: absolute;
+  border-radius: 0px 0px 500px 500px;
+  background-color: #352600;
+  border: 8px solid #352600;
+  top: 67%;
+  left: 21%;
+}
+
+.face .mouth .tongun {
+  width: 100px;
+  height: 30px;
+  background-color: #ff9191;
+  border-radius: 200px 200px 0px 0px;
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translateX(-50%);
+}
+
+.mandarin .item {
+  width: 180px;
+  height: 230px;
+  margin-left: 90%;
+  margin-top: 50%;
+  filter: drop-shadow(10px 20px 6px #778348);
+
+  animation: itemMoving 3s infinite;
+}
