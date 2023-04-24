@@ -1,0 +1,82 @@
+@import "reset.css";
+
+body {
+  background-color: #eae8fe;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  text-align: center;
+  margin-bottom: 67px;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0px 28px;
+}
+
+/* 좌, 우 */
+.container .machine-01,
+.container .machine-02 {
+  width: 360px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.container .machine-02 {
+  background-color: #eae8fe;
+}
+.machine-02 .contents-04 {
+  background: #ffffff;
+  padding: 9px 27px;
+}
+.contents-04 .info-mymoney {
+  background-color: #eae8fe;
+  padding: 6px 10px;
+  font-size: 14px;
+  line-height: 20px;
+  border-radius: 5px;
+  font-weight: 700;
+}
+.contents-04 .txt-mymoney {
+  float: right;
+  font-weight: 700;
+}
+
+.machine-02 .contents-05 {
+  margin-top: 20px;
+  padding: 25px 27px 52px 27px;
+  background-color: #fff;
+}
+.contents-05 .txt-drink {
+  display: block;
+  text-align: center;
+  margin-bottom: 13px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.contents-05 .list-select-all {
+  height: 364px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  background-color: #eae8fe;
+  padding: 12px;
+}
+.contents-05 .info-total {
+  display: block;
+  text-align: right;
+  font-size: 14px;
+  font-weight: 700;
+  margin-top: 10px;
+}
