@@ -17,7 +17,7 @@ class VendingMachineEvents {
     this.txtTotal = getInfo.querySelector('.total-price');
   }
 
-  //장바구니 콜라 생성 함수
+  // * 6. 장바구니 콜라 생성 함수
   stagedItemGenerator(target) {
     const stagedItem = document.createElement('li');
     stagedItem.dataset.item = target.dataset.item;
@@ -42,22 +42,17 @@ class VendingMachineEvents {
      * 4) 입금액이 정상적으로 입금되면 입금창은 초기화
      */
     this.btnPut.addEventListener('click', () => {
-      // 입력값
-      const inputCost = parseInt(this.inputCostEl.value);
-      // 소지금
-      const myMoneyVal = parseInt(this.myMoney.textContent.replaceAll(',', ''));
-
-      // 잔액
-      const balanceVal = parseInt(this.balance.textContent.replaceAll(',', ''));
+      const inputCost = parseInt(this.inputCostEl.value); // 입력값
+      const myMoneyVal = parseInt(this.myMoney.textContent.replaceAll(',', '')); // 소지금
+      const balanceVal = parseInt(this.balance.textContent.replaceAll(',', '')); // 잔액
 
       if (inputCost) {
         // 입금액이 소지금 보다 적거나 같다면
         if (inputCost <= myMoneyVal && inputCost > 0) {
           this.myMoney.textContent = new Intl.NumberFormat().format(myMoneyVal - inputCost) + '원';
-
-          this.balance.textContent = new Intl.NumberFormat().format((balanceVal ? balanceVal : 0) + inputCost) + '원';
-
-          // 입금액이 소지금보다 많다!
+          this.balance.textContent =
+            new Intl.NumberFormat().format((balanceVal ? balanceVal : 0) + inputCost) + '원';
+          // 입금액이 소지금보다 많다면
         } else {
           alert('소지금이 부족합니다.');
         }
@@ -102,13 +97,15 @@ class VendingMachineEvents {
         let isStaged = false; // 이미 장바구니에 있는가?
 
         if (balanceVal >= targetElPrice) {
-          this.balance.textContent = new Intl.NumberFormat().format(balanceVal - targetElPrice) + '원';
+          this.balance.textContent =
+            new Intl.NumberFormat().format(balanceVal - targetElPrice) + '원';
 
           for (const item of stagedListitem) {
             // 클릭한 콜라의 이름과 장바구니에 있던 콜라의 이름이 같은지 비교!
             if (targetEl.dataset.item === item.dataset.item) {
               // 이미 장바구니에 콜라가 있다면 카운트 +1
-              item.querySelector('strong').firstChild.textContent = parseInt(item.querySelector('strong').firstChild.textContent) + 1;
+              item.querySelector('strong').firstChild.textContent =
+                parseInt(item.querySelector('strong').firstChild.textContent) + 1;
 
               isStaged = true;
               break;
@@ -163,7 +160,8 @@ class VendingMachineEvents {
           if (itemStaged.dataset.item === itemGet.dataset.item) {
             // 이미 장바구니에 콜라가 있다면 카운트 +1
             itemGet.querySelector('strong').firstChild.textContent =
-              parseInt(itemGet.querySelector('strong').firstChild.textContent) + parseInt(itemStaged.querySelector('strong').firstChild.textContent);
+              parseInt(itemGet.querySelector('strong').firstChild.textContent) +
+              parseInt(itemStaged.querySelector('strong').firstChild.textContent);
 
             isGet = true;
             break;
@@ -180,7 +178,9 @@ class VendingMachineEvents {
 
       // 획득한 음료 리스트를 순회하면서 총금액을 계산
       this.getList.querySelectorAll('li').forEach((itemGet) => {
-        totalPrice += parseInt(itemGet.dataset.price) * parseInt(itemGet.querySelector('strong').firstChild.textContent);
+        totalPrice +=
+          parseInt(itemGet.dataset.price) *
+          parseInt(itemGet.querySelector('strong').firstChild.textContent);
       });
       this.txtTotal.textContent = `총금액 : ${new Intl.NumberFormat().format(totalPrice)} 원`;
     });
