@@ -19,17 +19,20 @@ class VendingMachineEvents {
 
   // * 6. 장바구니 콜라 생성 함수
   stagedItemGenerator(target) {
-    const stagedItem = document.createElement('li');
-    stagedItem.dataset.item = target.dataset.item;
-    stagedItem.dataset.price = target.dataset.price;
+    const stagedItem = document.createElement('li'); // 새로운 <li> 요소를 생성
+    stagedItem.dataset.item = target.dataset.item; // 콜라 이름을 <li> 요소의 dataset.item 속성에 설정
+    stagedItem.dataset.price = target.dataset.price; // 콜라 가격을 <li> 요소의 dataset.price 속성에 설정
+
+    // 콜라 아이템을 <li> 요소 안에 HTML로 구성
     stagedItem.innerHTML = `
       <img src="./img/${target.dataset.img}" alt="">
           ${target.dataset.item}
       <strong>1
           <span class="a11y-hidden">개</span>
       </strong>
-      `;
-    this.stagedList.append(stagedItem);
+    `;
+
+    this.stagedList.append(stagedItem); // 구성된 <li> 요소를 장바구니 목록(this.stagedList)에 추가
   }
 
   bindEvent() {
@@ -67,11 +70,8 @@ class VendingMachineEvents {
      * 2) 반환버튼을 누르면 잔액창이 초기화
      */
     this.btnReturn.addEventListener('click', () => {
-      // 잔액
-      const balanceVal = parseInt(this.balance.textContent.replaceAll(',', ''));
-
-      // 소지금
-      const myMoneyVal = parseInt(this.myMoney.textContent.replaceAll(',', ''));
+      const balanceVal = parseInt(this.balance.textContent.replaceAll(',', '')); // 잔액
+      const myMoneyVal = parseInt(this.myMoney.textContent.replaceAll(',', '')); // 소지금
 
       if (balanceVal) {
         this.myMoney.textContent = new Intl.NumberFormat().format(balanceVal + myMoneyVal) + '원';
@@ -112,9 +112,9 @@ class VendingMachineEvents {
             }
           }
 
-          // 처음 선택했을 경우에만 장바구니에 콜라를 생성
+          // isStaged가 false인 경우, 장바구니에 새로운 콜라를 생성
           if (!isStaged) {
-            //장바구니 콜라 생성
+            //장바구니 콜라 생성 함수 호출
             this.stagedItemGenerator(event.currentTarget);
           }
 
