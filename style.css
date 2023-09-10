@@ -147,7 +147,7 @@ section {
   color: #eae8fe;
   border: 6px double #eae8fe;
   padding: 0 8px;
-  transform: rotate(-20deg) translate(-10px, 30px);
+  transform: rotate(-20deg) translate(-15px, 40px);
 }
 
 /* 잔액 및 장바구니 */
