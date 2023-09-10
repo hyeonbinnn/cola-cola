@@ -36,10 +36,11 @@ button:not(:disabled) {
   position: absolute;
 }
 
-/* layout-------------------- */
+/* layout */
 body {
   font-family: 'Noto Sans KR', sans-serif;
 }
+
 /* h1 */
 h1 {
   text-align: center;
@@ -48,6 +49,7 @@ h1 img {
   width: 386px;
   max-width: calc(100% - (97px * 2));
 }
+
 section {
   background: #fff;
 }
@@ -81,10 +83,12 @@ section {
   .section3 {
     grid-area: section3;
   }
+
   h1 {
     margin-bottom: 68px;
   }
 }
+
 /* mobile */
 @media (max-width: 747px) {
   h1 {
@@ -95,6 +99,7 @@ section {
 .section1 {
   padding: 31px 27px 28px;
 }
+
 /* 판매 음료 */
 .cola-list {
   display: grid;
@@ -133,6 +138,7 @@ section {
   border-radius: 20px;
 }
 
+/* 품절 */
 .soldout {
   background: rgba(0, 0, 0, 0.8);
   position: absolute;
@@ -175,7 +181,6 @@ section {
   content: ' :';
 }
 
-/* section2 */
 .section2 {
   padding: 9px 27px;
 }
