@@ -9,8 +9,8 @@ class VendingMachineEvents {
     this.btnGet = vMachine.querySelector('.btn-get');
     this.stagedList = vMachine.querySelector('.get-list');
 
-    const myinfo = document.querySelector('.section2');
-    this.myMoney = myinfo.querySelector('.bg-box strong');
+    const myInfo = document.querySelector('.section2');
+    this.myMoney = myInfo.querySelector('.bg-box strong');
 
     const getInfo = document.querySelector('.section3');
     this.getList = getInfo.querySelector('.get-list');
