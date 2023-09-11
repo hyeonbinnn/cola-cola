@@ -1,12 +1,15 @@
-# 🥤 Cola Cola
-![image3](https://github.com/hyeonbinnn/cola-cola/assets/117449788/11c38953-3c94-4721-b4cd-074679a3ceca)
+# 🥤 Cola Cola 자판기
+![image4](https://github.com/hyeonbinnn/cola-cola/assets/117449788/758f4f68-f402-48f9-9cdf-4a95cae72b15)
 
 <br>
 <br>
 
-## 구현 기간
+## 구현 기간 & 배포 링크
 
-`2023.04.30 ~ 2023.05.08`
+> ### vending-machine
+> `2023.04.30 ~ 2023.05.08` <br>
+>
+> <strong>[`배포 URL 바로가기`](https://colacola.netlify.app)</strong>
 
 <br>
 <br>
