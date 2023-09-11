@@ -18,19 +18,24 @@ const hideSplash = () => {
 
 // 탑레벨 await : 최상위 모듈에서 실행되는 await
 const startApp = async () => {
-  // 스플래시 화면 나타내기
-  showSplash();
+  try {
+    // 스플래시 화면 나타내기
+    showSplash();
 
-  // 스플래시 화면 숨기기
-  setTimeout(async () => {
-    hideSplash();
+    // 3초 동안 스플래시 화면 유지
+    await new Promise((resolve) => setTimeout(resolve, 3000));
 
     // ColaGenerator 초기화
     await colaGenerator.setup();
 
     // VendingMachineEvents 이벤트 바인딩 및 앱 초기화
     vendingMachineEvents.bindEvent();
-  }, 3000);
+  } catch {
+    console.error(error);
+  } finally {
+    // 스플래시 화면 숨기기
+    hideSplash();
+  }
 };
 
 // 앱 초기화
