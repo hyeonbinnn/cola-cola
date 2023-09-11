@@ -325,4 +325,97 @@ let isStaged = false; // 이미 장바구니에 있는가?
      this.stagedItemGenerator(event.currentTarget);
    }
 
-   // 자가
+   // 자판기 콜라 개수 차감
+   targetEl.dataset.count--;
+
+   if (!parseInt(targetEl.dataset.count)) {
+     targetEl.insertAdjacentHTML(
+       'beforeEnd',
+       `
+       <strong class= "soldout">
+       <span>품절</span>
+       </strong>
+       `
+     );
+
+     targetEl.disabled = 'disabled';
+   }
+ } else {
+   alert('입금한 금액이 부족합니다.');
+ }
+});
+});
+```
+
+### 4. 획득 버튼 기능
+![image (1)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/d5c838ce-97ae-4a43-9e72-16c36d8f6872)
+
+
+```js
+this.btnGet.addEventListener('click', () => {
+  // const itemStagedList = this.stagedList.children;
+  // const itemGetList = this.getList.children;
+  const itemStagedList = this.stagedList.querySelectorAll('li');
+  const itemGetList = this.getList.querySelectorAll('li');
+  let totalPrice = 0;
+```
+
+```js
+  for (const itemStaged of itemStagedList) {
+    let isGet = false; // 이미 획득했는가?
+    for (const itemGet of itemGetList) {
+      console.log(itemStaged.querySelector('strong'));
+      // 장바구니의 콜라가 이미 획득한 목록에 있다면
+      if (itemStaged.dataset.item === itemGet.dataset.item) {
+        // 이미 장바구니에 콜라가 있다면 카운트 +1
+        itemGet.querySelector('strong').firstChild.textContent =
+          parseInt(itemGet.querySelector('strong').firstChild.textContent) +
+          parseInt(itemStaged.querySelector('strong').firstChild.textContent);
+
+        isGet = true;
+        break;
+      }
+    }
+
+    if (!isGet) {
+      this.getList.append(itemStaged);
+    }
+  }
+```
+
+```js
+  // 장바구니 목록 초기화
+  this.stagedList.innerHTML = null;
+
+  // 획득한 음료 리스트를 순회하면서 총금액을 계산
+  this.getList.querySelectorAll('li').forEach((itemGet) => {
+    totalPrice +=
+      parseInt(itemGet.dataset.price) *
+      parseInt(itemGet.querySelector('strong').firstChild.textContent);
+  });
+  this.txtTotal.textContent = `총금액 : ${new Intl.NumberFormat().format(totalPrice)} 원`;
+});
+}
+}
+```
+
+### 5. 장바구니 콜라 생성 함수
+```js
+stagedItemGenerator(target) {
+  const stagedItem = document.createElement('li'); // 새로운 <li> 요소를 생성
+  stagedItem.dataset.item = target.dataset.item; // 콜라 이름을 <li> 요소의 dataset.item 속성에 설정
+  stagedItem.dataset.price = target.dataset.price; // 콜라 가격을 <li> 요소의 dataset.price 속성에 설정
+
+  // 콜라 아이템을 <li> 요소 안에 HTML로 구성
+  stagedItem.innerHTML = `
+    <img src="./img/${target.dataset.img}" alt="">
+        ${target.dataset.item}
+    <strong>1
+        <span class="a11y-hidden">개</span>
+    </strong>
+  `;
+
+  this.stagedList.append(stagedItem); // 구성된 <li> 요소를 장바구니 목록(this.stagedList)에 추가
+}
+```
+
