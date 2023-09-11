@@ -66,7 +66,7 @@
 
 ## 코드 설명
 
-### ⚙️ 콜라 아이템 정보
+### 🪧 콜라 아이템 정보
 
 ```json
 [
@@ -111,184 +111,136 @@
 <br>
 <br>
 
-### saveTodo 함수
+### ⚙️ JavaScript 파일 모듈화
+클래스를 만들고 인스턴스를 생성한 후에 `index.js`에서 2개의 클래스를 임포트하고, `index.html`에 모듈로 연결한다.
 
+#### Why? 
+코드의 구조를 모듈화해 관리하기 위해서! 모듈화를 통해 코드를 작은 단위로 나누고, 각 단위별로 독립적으로 동작하게 만들어서 가독성과 유지보수성을 높일 수 있다.
+
+#### 모듈화 이점
+- 코드의 재사용성
+- 코드의 가독성
+- 유지보수 용이성
+- 코드의 구조화
+- 충돌 방지
+
+<br>
+<br>
+
+### 📜 콜라 버튼 생성 클래스 (ColaGenerator)
 ```js
-const saveTodo = () => {
-  localStorage.setItem('todos', JSON.stringify(todos));
-};
-```
+class ColaGenerator {
+  constructor() {
+    this.itemList = document.querySelector('.section1 .cola-list');
+  }
 
-- `todos` 배열을 로컬 스토리지에 저장하는 함수다.
-- `localStorage.setItem('todos', JSON.stringify(todos))`를 호출해, `todos` 배열을 JSON 형식으로 변환하여 로컬 스토리지에 저장한다.
-<br>
-
-![](https://velog.velcdn.com/images/hyeonbinnn/post/ac41e048-7a6b-4870-9cfa-4ecc34986aa4/image.png)
-
-<br>
-<br>
-
-### delTodo 함수
-
-```js
-const delTodo = (event) => {
-  const target = event.target.parentElement;
-  todos = todos.filter((todo) => todo.id !== parseInt(target.id));
-  saveTodo();
-
-  target.remove();
-};
-```
-
-- 할 일 목록을 삭제하는 함수다.
-- 클릭한 버튼의 부모 요소인 `li`를 찾아서 문서에서 삭제한다.
-- `todos` 배열에서 해당 `id` 값을 가진 요소를 찾아서 삭제한 후, 변경된 `todos` 배열을 다시 저장한다.
-<br>
-
-![](https://velog.velcdn.com/images/hyeonbinnn/post/029c1bfd-e5f1-4426-8eff-cc6a445ee341/image.gif)
-
-<br>
-<br>
-
-### allClear 함수
-
-```js
-const allClear = () => {
-  localStorage.clear('todos', JSON.stringify(todos));
-  ul.innerHTML = '';
-};
-```
-
-- 모든 할 일 목록을 삭제하는 함수다.
-- `localStorage.clear('todos', JSON.stringify(todos))`를 호출해 로컬 스토리지의 `todos` 데이터를 삭제한다.
-- `ul.innerHTML`을 빈 문자열로 설정해 할 일 목록을 비운다.
-<br>
-
-![](https://velog.velcdn.com/images/hyeonbinnn/post/1ba1e4f3-dad8-4f3a-a00e-3d5d1f0c85ec/image.gif)
-
-<br>
-<br>
-
-### addTodo 함수
-
-```js
-const addTodo = (todo) => {
-  if (todo.text !== '') {
-    const li = document.createElement('li');
-    const button = document.createElement('button');
-    const span = document.createElement('span');
-    const check = document.createElement('button');
-
-    check.innerText = '✔';
-    check.classList.add('btn-check');
-    span.innerText = todo.text;
-    button.innerText = '✘';
-    button.classList.add('btn-x');
-
-    button.addEventListener('click', delTodo);
-    clear.addEventListener('click', allClear);
-    check.addEventListener('click', () => {
-      li.classList.toggle('complete');
-      todo.completed = !todo.completed;
-      saveTodo();
-    });
-
-    li.appendChild(check);
-    li.appendChild(span);
-    li.appendChild(button);
-    ul.appendChild(li);
-
-    li.id = todo.id;
-
-    if (todo.completed) {
-      li.classList.add('complete');
+  async setup() {
+    try {
+      const response = await this.loadData();
+      if (response) {
+        this.colaFactory(response);
+      }
+    } catch (error) {
+      console.log(error);
+      return null;
     }
   }
-};
-```
 
-- 새로운 할 일 항목을 화면에 추가하는 함수다.
-- 인자로 받은 `todo` 객체를 사용해 HTML요소를 동적으로 생성하고 문서에 추가한다.
-- 버튼의 클릭 이벤트와 완료 상태 변경을 처리하는 함수를 등록한다.
-- 생성한 리스트 요소의 `id` 값을 `todo` 객체의 `id` 값으로 지정한다.
-- 완료된 항목인 경우 `li` 요소에 `complete` 클래스를 추가해 완료 상태를 시각적으로 표시한다.
-<br>
+  async loadData() {
+    try {
+      const response = await fetch('./items.json');
 
-![](https://velog.velcdn.com/images/hyeonbinnn/post/7e12b1c4-63f4-4b07-8ae5-e52993ece657/image.png)
-
-<br>
-<br>
-
-### handleSubmit 함수
-
-```js
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const todo = {
-    id: Date.now(),
-    text: input.value,
-    completed: false,
-  };
-
-  todos.push(todo);
-  addTodo(todo);
-  saveTodo();
-  input.value = '';
-};
-```
-
-- 폼 제출 이벤트를 처리하는 함수다.
-- `event.preventDefault()`를 호출해 페이지가 새로고침되는 것을 방지한다.
-- 입력된 텍스트를 사용해 새로운 `todo` 객체를 생성하고 `todos` 배열에 추가한다.
-- `addTodo` 함수를 호출해 새로운 할 일을 화면에 추가한다.
-- `saveTodo` 함수를 호출해 변경된 `todos` 배열을 저장한다.
-- 입력 창을 공백으로 초기화한다.
-
-<br>
-<br>
-
-### init 함수
-
-```js
-const init = () => {
-  const userTodos = JSON.parse(localStorage.getItem('todos'));
-
-  if (userTodos) {
-    userTodos.forEach((todo) => {
-      addTodo(todo);
-    });
-
-    todos = userTodos;
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(response.status);
+      }
+    } catch (error) {
+      console.log(error);
+      return null; // 데이터 로딩 실패 시 null 반환
+    }
   }
-};
+
+  colaFactory(data) {
+    const docFrag = document.createDocumentFragment();
+    data.forEach((el) => {
+      const item = document.createElement('li');
+      const itemTemplate = `
+          <button class="btn-cola" type="button" data-item="${el.name}" data-count="${el.count}" data-price="${el.cost}" data-img="${el.img}">
+              <img class="cola-img" src="./img/${el.img}" alt="">
+              <span class="cola-name">${el.name}</span>
+              <strong class="cola-price">${el.cost}원</strong>
+          </button>
+          `;
+
+      item.innerHTML = itemTemplate;
+      docFrag.append(item);
+    });
+    this.itemList.append(docFrag);
+  }
+}
+
+export default ColaGenerator;
 ```
+<br>
 
-- 페이지가 로드될 때 호출되는 함수다.
-- `localStorage.getItem('todos')`를 사용해 로컬 스토리지에서 `todos` 데이터를 가져온다.
-- 가져온 데이터는 JSON 형식으로 저장되어 있으므로 `JSON.parse`를 사용하여 파싱한 후 `userTodos` 변수에 저장한다.
-- 만약 `userTodos`가 존재한다면, 각 `todo` 객체에 대해 `addTodo` 함수를 호출해 화면에 할 일을 추가한다.
-- `todos` 배열을, 가져온 `userTodos`로 초기화한다.
+> #### setup() 메서드
+>
+> `setup()` 메서드는 비동기 함수로, 초기 설정을 위해 `loadData()`와 `colaFactory()`를 차례로 실행한다.
+> 
+> `await this.loadData` 데이터를 로드하고, 로드가 완료될 때까지 기다리며, 작업이 완료될 때가지 다음 코드를 실행하지 않는다. 
+>
+> 그 다음, 로드된 데이터가 있으면 `this.colaFactory(response)`를 호출해 데이터를 가지고 콜라 아이템을 생성한다.
+>  
+> 에러가 발생하면, `catch`블록에서 에러를 콘솔에 기록하고 `null` 값을 반환한다.
+> <br>
+> <br>
+>
+> #### loadData() 메서드
+>
+> `loadData()` 메서드는 비동기 함수로, 서버에서 데이터를 가져오는 역할을 한다.
+> 
+> `fetch` 함수를 사용해서 `./items.json`에서 데이터를 가져온다.
+>
+> 만약 서버가 정상적으로 응답하면, JSON 데이터를 반환하고, 그렇지 않으면 마찬가지로 `catch` 블록에서 에러를 콘솔에 기록하고, `null` 값을 반환한다.
+> <br>
+> <br>
+>
+> #### colaFactory() 메서드
+>
+> `colaFactory()` 메서드는 받은 데이터를 이용해 HTML 요소를 동적으로 생성하고, 콜라 상품 목록에 추가한다.
+>
+> `document.createDocumentFragment()`를 사용해 여러 개의 DOM 요소를 생성한 후에 한 번에 추가하도록 한다.
+>
+> `data` 배열의 각 요소를 반복하면서 버튼 요소를 생성하고, 각각의 데이터를 해당 요소의 속성에 저장한다. 그리고 이 버튼을 `docFrag`에 추가한다.
+>
+> 마지막으로 `docFrag`를 `this.itemList`에 추가해 실제 웹 페이지에 콜라 상품 목록을 표시한다.
 
 <br>
 <br>
 
-### 이벤트 처리와 초기화
+### 📜 자판기 이벤트 처리 클래스 (VendingMachineEvents)
+#### 1. 입금 버튼 기능
+![image (1)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/dfb203f2-9baa-4f05-b1ad-6c8ec34577d0)
 
 ```js
-init();
+this.btnPut.addEventListener('click', () => {
+  const inputCost = parseInt(this.inputCostEl.value); // 입력값
+  const myMoneyVal = parseInt(this.myMoney.textContent.replaceAll(',', '')); // 소지금
+  const balanceVal = parseInt(this.balance.textContent.replaceAll(',', '')); // 잔액
 
-form.addEventListener('submit', handleSubmit);
-
-const today = new Date();
-const formattedDate = `${today.getFullYear()}.${String(today.getMonth() + 1).padStart(
-  2,
-  '0'
-)}.${String(today.getDate()).padStart(2, '0')}`;
-
-document.getElementById('current-date').textContent = formattedDate;
+  if (inputCost) {
+    // 입금액이 소지금 보다 적거나 같다면
+    if (inputCost <= myMoneyVal && inputCost > 0) {
+      this.myMoney.textContent = new Intl.NumberFormat().format(myMoneyVal - inputCost) + '원';
+      this.balance.textContent =
+        new Intl.NumberFormat().format((balanceVal ? balanceVal : 0) + inputCost) + '원';
+      // 입금액이 소지금보다 많다면
+    } else {
+      alert('소지금이 부족합니다.');
+    }
+    // 입금액 초기화
+    this.inputCostEl.value = '';
+  }
+});
 ```
-
-- `init` 함수를 호출해 페이지가 로드될 때 기존의 할 일 목록을 가져와서 화면에 표시한다.
-- `form` 요소에 `submit` 이벤트가 발생하면 `handleSubmit` 함수가 호출된다.
-- 오늘 날짜를 가져와서 `formattedDate` 변수에 저장한다.
-- 해당 날짜를 `current-data` id를 가진 HTML요소에 `textContent`를 사용하여 날짜를 설정한다.
