@@ -1,4 +1,4 @@
-![image (3)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/4c0b019e-693f-445a-b900-d85537fa3e3d)# 🥤 Cola Cola 자판기
+# 🥤 Cola Cola 자판기
 ![image4](https://github.com/hyeonbinnn/cola-cola/assets/117449788/758f4f68-f402-48f9-9cdf-4a95cae72b15)
 
 <br>
