@@ -1,4 +1,4 @@
-# 🥤 Cola Cola 자판기
+![image (3)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/4c0b019e-693f-445a-b900-d85537fa3e3d)# 🥤 Cola Cola 자판기
 ![image4](https://github.com/hyeonbinnn/cola-cola/assets/117449788/758f4f68-f402-48f9-9cdf-4a95cae72b15)
 
 <br>
@@ -64,9 +64,7 @@
 <br>
 <br>
 
-## 코드 설명
-
-### 🪧 콜라 아이템 정보
+## 🪧 콜라 아이템 정보
 
 ```json
 [
@@ -111,13 +109,13 @@
 <br>
 <br>
 
-### ⚙️ JavaScript 파일 모듈화
+## ⚙️ JavaScript 파일 모듈화
 클래스를 만들고 인스턴스를 생성한 후에 `index.js`에서 2개의 클래스를 임포트하고, `index.html`에 모듈로 연결한다.
 
-#### Why? 
+### Why? 
 코드의 구조를 모듈화해 관리하기 위해서! 모듈화를 통해 코드를 작은 단위로 나누고, 각 단위별로 독립적으로 동작하게 만들어서 가독성과 유지보수성을 높일 수 있다.
 
-#### 모듈화 이점
+### 모듈화 이점
 - 코드의 재사용성
 - 코드의 가독성
 - 유지보수 용이성
@@ -127,7 +125,7 @@
 <br>
 <br>
 
-### 📜 콜라 버튼 생성 클래스 (ColaGenerator)
+## 📜 콜라 버튼 생성 클래스 (ColaGenerator)
 ```js
 class ColaGenerator {
   constructor() {
@@ -184,7 +182,7 @@ export default ColaGenerator;
 ```
 <br>
 
-> #### setup() 메서드
+> ### setup() 메서드
 >
 > `setup()` 메서드는 비동기 함수로, 초기 설정을 위해 `loadData()`와 `colaFactory()`를 차례로 실행한다.
 > 
@@ -196,7 +194,7 @@ export default ColaGenerator;
 > <br>
 > <br>
 >
-> #### loadData() 메서드
+> ### loadData() 메서드
 >
 > `loadData()` 메서드는 비동기 함수로, 서버에서 데이터를 가져오는 역할을 한다.
 > 
@@ -206,7 +204,7 @@ export default ColaGenerator;
 > <br>
 > <br>
 >
-> #### colaFactory() 메서드
+> ### colaFactory() 메서드
 >
 > `colaFactory()` 메서드는 받은 데이터를 이용해 HTML 요소를 동적으로 생성하고, 콜라 상품 목록에 추가한다.
 >
@@ -219,8 +217,31 @@ export default ColaGenerator;
 <br>
 <br>
 
-### 📜 자판기 이벤트 처리 클래스 (VendingMachineEvents)
-#### 1. 입금 버튼 기능
+## 📜 자판기 이벤트 처리 클래스 (VendingMachineEvents)
+### 0. DOM에서 필요한 요소들 선택해 클래스의 프로퍼티로 할당하기
+```js
+constructor() {
+  const vMachine = document.querySelector('.section1');
+  this.balance = vMachine.querySelector('.bg-box p');
+  this.itemList = vMachine.querySelector('.cola-list');
+  this.inputCostEl = vMachine.querySelector('#input-money');
+  this.btnPut = vMachine.querySelector('#input-money+.btn');
+  this.btnReturn = vMachine.querySelector('.bg-box+.btn');
+  this.btnGet = vMachine.querySelector('.btn-get');
+  this.stagedList = vMachine.querySelector('.get-list');
+
+  const myinfo = document.querySelector('.section2');
+  this.myMoney = myinfo.querySelector('.bg-box strong');
+
+  const getInfo = document.querySelector('.section3');
+  this.getList = getInfo.querySelector('.get-list');
+  this.txtTotal = getInfo.querySelector('.total-price');
+}
+
+bindEvent() { ... } // 여러가지 이벤트 핸들러 기능을 수행하는 함수
+```
+
+### 1. 입금 버튼 기능
 ![image (1)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/dfb203f2-9baa-4f05-b1ad-6c8ec34577d0)
 
 ```js
@@ -244,3 +265,64 @@ this.btnPut.addEventListener('click', () => {
   }
 });
 ```
+
+### 2. 거스름돈 반환 버튼 기능
+![image (2)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/bec05125-57c4-4106-90bb-39f250301ed2)
+
+```js
+this.btnReturn.addEventListener('click', () => {
+  const balanceVal = parseInt(this.balance.textContent.replaceAll(',', '')); // 잔액
+  const myMoneyVal = parseInt(this.myMoney.textContent.replaceAll(',', '')); // 소지금
+
+  if (balanceVal) {
+    this.myMoney.textContent = new Intl.NumberFormat().format(balanceVal + myMoneyVal) + '원';
+    this.balance.textContent = null;
+  }
+});
+```
+
+### 3. 자판기 장바구니 채우기 기능
+![image (3)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/8a3e15d9-c36f-4f61-99a5-951ab1307786)
+
+```js
+this.btnsCola = document.querySelectorAll('.section1 .btn-cola');
+
+this.btnsCola.forEach((item) => {
+  item.addEventListener('click', (event) => {
+    // 이벤트 핸들러 내용
+  });
+});
+```
+
+```js
+const balanceVal = parseInt(this.balance.textContent.replaceAll(',', ''));
+const targetEl = event.currentTarget;
+const targetElPrice = parseInt(targetEl.dataset.price);
+const stagedListitem = this.stagedList.querySelectorAll('li');
+let isStaged = false; // 이미 장바구니에 있는가?
+```
+
+```js
+ if (balanceVal >= targetElPrice) {
+   this.balance.textContent =
+     new Intl.NumberFormat().format(balanceVal - targetElPrice) + '원';
+
+   for (const item of stagedListitem) {
+     // 클릭한 콜라의 이름과 장바구니에 있던 콜라의 이름이 같은지 비교!
+     if (targetEl.dataset.item === item.dataset.item) {
+       // 이미 장바구니에 콜라가 있다면 카운트 +1
+       item.querySelector('strong').firstChild.textContent =
+         parseInt(item.querySelector('strong').firstChild.textContent) + 1;
+
+       isStaged = true;
+       break;
+     }
+   }
+   
+   // isStaged가 false인 경우, 장바구니에 새로운 콜라를 생성
+   if (!isStaged) {
+     //장바구니 콜라 생성 함수 호출
+     this.stagedItemGenerator(event.currentTarget);
+   }
+
+   // 자가
