@@ -4,8 +4,15 @@ class ColaGenerator {
   }
 
   async setup() {
-    const response = await this.loadData();
-    this.colaFactory(response);
+    try {
+      const response = await this.loadData();
+      if (response) {
+        this.colaFactory(response);
+      }
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 
   async loadData() {
@@ -20,6 +27,7 @@ class ColaGenerator {
       }
     } catch (error) {
       console.log(error);
+      return null; // 데이터 로딩 실패 시 null 반환
     }
   }
 
