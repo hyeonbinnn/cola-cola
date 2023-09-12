@@ -86,7 +86,7 @@
 <br>
 
 ## 콜라 아이템 정보
-### item.json
+### items.json
 
 ```json
 [
