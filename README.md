@@ -88,6 +88,8 @@
 ## 콜라 아이템 정보
 
 ```json
+// item.json
+
 [
   {
     "name": "Original Cola",
