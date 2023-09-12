@@ -21,9 +21,9 @@
 ## 프로젝트 정보
 
 > ### vending-machine : 콜라 자판기 만들기
-> 구현 기간 : `2023.04.30 ~ 2023.05.08` <br>
+> **구현 기간 :**  `2023.04.30 ~ 2023.05.08` <br>
 >
-> 배포 사이트 : <strong>[`배포 URL 바로가기`](https://colacola.netlify.app)</strong>
+> **배포 사이트 :**  <strong>[`배포 URL 바로가기`](https://colacola.netlify.app)</strong>
 > <br>
 > <br>
 >
