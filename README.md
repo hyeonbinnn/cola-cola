@@ -27,7 +27,7 @@
 > <br>
 > <br>
 >
-> **Mobile ver.**
+> ### Mobile ver.
 > 
 > ![image5](https://github.com/hyeonbinnn/cola-cola/assets/117449788/08b83dfb-ec14-4404-984b-7051e3642902)
 
