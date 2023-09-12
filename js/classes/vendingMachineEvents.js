@@ -17,7 +17,7 @@ class VendingMachineEvents {
     this.txtTotal = getInfo.querySelector('.total-price');
   }
 
-  // * 6. 장바구니 콜라 생성 함수
+  // * 5. 장바구니 콜라 생성 함수
   stagedItemGenerator(target) {
     const stagedItem = document.createElement('li'); // 새로운 <li> 요소를 생성
     stagedItem.dataset.item = target.dataset.item; // 콜라 이름을 <li> 요소의 dataset.item 속성에 설정
