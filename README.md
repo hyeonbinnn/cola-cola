@@ -86,10 +86,9 @@
 <br>
 
 ## 콜라 아이템 정보
+### item.json
 
 ```json
-// item.json
-
 [
   {
     "name": "Original Cola",
