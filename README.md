@@ -274,7 +274,9 @@ bindEvent() { 1~4번 기능... } // 여러가지 이벤트 핸들러 기능을 �
 <br>
 
 ### 1. 입금 버튼 기능
-![image (1)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/dfb203f2-9baa-4f05-b1ad-6c8ec34577d0)
+<p align="center">
+  <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/dfb203f2-9baa-4f05-b1ad-6c8ec34577d0">
+</p>
 
 ```js
 // 입금 버튼을 누르면
@@ -315,7 +317,9 @@ this.btnPut.addEventListener('click', () => {
 <br>
 
 ### 2. 거스름돈 반환 버튼 기능
-![image (2)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/bec05125-57c4-4106-90bb-39f250301ed2)
+<p align="center">
+  <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/bec05125-57c4-4106-90bb-39f250301ed2">
+</p>
 
 ```js
 // 거스름돈 반환 버튼을 누르면
@@ -344,7 +348,9 @@ this.btnReturn.addEventListener('click', () => {
 <br>
 
 ### 3. 자판기 장바구니 채우기 기능
-![image (3)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/8a3e15d9-c36f-4f61-99a5-951ab1307786)
+<p align="center">
+  <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/8a3e15d9-c36f-4f61-99a5-951ab1307786">
+</p>
 
 ```js
 // 자판 콜라 버튼을 누르면
@@ -433,8 +439,9 @@ this.btnsCola.forEach((item) => {
 <br>
 
 ### 4. 획득 버튼 기능
-![image (1)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/d5c838ce-97ae-4a43-9e72-16c36d8f6872)
-
+<p align="center">
+  <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/d5c838ce-97ae-4a43-9e72-16c36d8f6872">
+</p>
 
 ```js
 // 획득 버튼을 누르면
@@ -528,7 +535,7 @@ stagedItemGenerator(target) {
 >
 > `stagedItem`은 새로운 `<li>` 요소를 생성하는데, 장바구니에 추가될 콜라를 나타낸다. 그리고 콜라 이름과 가격이 아이템의 데이터로 저장되기 위해 콜라 버튼의 `dataset.item`과 `dataset.price`의 속성 값을 가져와서 `<li>` 요소의 `dataset.item`과 `dataset.price`의 속성으로 설정한다.
 >
-> 마지막으로, 구성된 <li> 요소 즉, 추가된 콜라 아이템을 새로운 장바구니 목록에 추가한다.
+> 마지막으로, 구성된 `<li>` 요소 즉, 추가된 콜라 아이템을 새로운 장바구니 목록에 추가한다.
 
 <br>
 <br>
