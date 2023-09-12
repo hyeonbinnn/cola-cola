@@ -24,7 +24,13 @@
 > `2023.04.30 ~ 2023.05.08` <br>
 >
 > <strong>[`배포 URL 바로가기`](https://colacola.netlify.app)</strong>
+> <br>
+> <br>
 >
+> **Mobile ver.**
+> 
+> ![image5](https://github.com/hyeonbinnn/cola-cola/assets/117449788/08b83dfb-ec14-4404-984b-7051e3642902)
+
 
 <br>
 <br>
