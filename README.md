@@ -84,38 +84,38 @@
 [
   {
     "name": "Original Cola",
-    "cost": 1000, 
-    "img": "cola-original.png", 
-    "count": 5 
+    "cost": 1000,
+    "img": "cola-original.svg",
+    "count": 5
   },
   {
     "name": "Violet Cola",
     "cost": 1000,
-    "img": "cola-violet.png",
+    "img": "cola-violet.svg",
     "count": 5
   },
   {
     "name": "Yellow Cola",
     "cost": 1000,
-    "img": "cola-yellow.png",
+    "img": "cola-yellow.svg",
     "count": 5
   },
   {
     "name": "Cool Cola",
     "cost": 1000,
-    "img": "cola-cool.png",
+    "img": "cola-cool.svg",
     "count": 5
   },
   {
     "name": "Green Cola",
     "cost": 1000,
-    "img": "cola-green.png",
+    "img": "cola-green.svg",
     "count": 5
   },
   {
     "name": "Orange Cola",
     "cost": 1000,
-    "img": "cola-orange.png",
+    "img": "cola-orange.svg",
     "count": 5
   }
 ]
@@ -200,8 +200,8 @@ export default ColaGenerator;
 >
 > `setup()` 메서드는 비동기 함수로, 초기 설정을 위해 `loadData()`와 `colaFactory()`를 차례로 실행한다.
 > 
-> `await this.loadData` 데이터를 로드하고, 로드가 완료될 때까지 기다리며, 작업이 완료될 때가지 다음 코드를 실행하지 않는다. 
->
+> `await this.loadData` 데이터를 로드하고, 로드가 완료될 때까지 기다리며, 작업이 완료될 때가지 다음 코드를 실행하지 않는다.
+> 
 > 그 다음, 로드된 데이터가 있으면 `this.colaFactory(response)`를 호출해 데이터를 가지고 콜라 아이템을 생성한다.
 >  
 > 에러가 발생하면, `catch`블록에서 에러를 콘솔에 기록하고 `null` 값을 반환한다.
@@ -252,13 +252,28 @@ constructor() {
   this.txtTotal = getInfo.querySelector('.total-price');
 }
 
-bindEvent() { ... } // 여러가지 이벤트 핸들러 기능을 수행하는 함수
+stagedItemGenerator() { 5번 기능... }
+
+bindEvent() { 1~4번 기능... } // 여러가지 이벤트 핸들러 기능을 수행하는 함수
 ```
+<br>
+
+> `constructor()` 함수는 클래스 생성자 함수며, 해당 클래스의 인스턴스를 생성할 때 자동으로 호출된다.
+>
+> `vMachine` 변수는 자판기 정보 요소를, `myInfo` 변수는 내 정보 요소를, `getInfo` 변수는 정보 요청 요소를 나타낸다.
+
+<br>
 
 ### 1. 입금 버튼 기능
 ![image (1)](https://github.com/hyeonbinnn/cola-cola/assets/117449788/dfb203f2-9baa-4f05-b1ad-6c8ec34577d0)
 
 ```js
+// 입금 버튼을 누르면
+// 1) 소지금 === 소지금 - 입금액
+// 2) 잔액 === 기존 잔액 + 입금액
+// 3) 입금액이 소지금보다 많으면 경고창 출력
+// 4) 입금액이 정상적으로 입금되면 입금창은 초기화
+
 this.btnPut.addEventListener('click', () => {
   const inputCost = parseInt(this.inputCostEl.value); // 입력값
   const myMoneyVal = parseInt(this.myMoney.textContent.replaceAll(',', '')); // 소지금
