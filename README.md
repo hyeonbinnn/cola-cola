@@ -5,17 +5,20 @@
 <br>
 
 ## 목차
-1. [구현 기간 & 배포 링크](#구현-기간-&-배포-링크)  
-2. [폴더 구조](#폴더-구조)   
-3. [사용 기술](#사용-기술)   
-4. [구현 기능](#구현-기능)
-5. [콜라 아이템 정보](#콜라-아이템-정보)
-6. [JavaScript 파일 모듈화](#JavaScript-파일-모듈화)
+- [구현 기간 & 배포 링크](#구현-기간-&-배포-링크)
+- [폴더 구조](#폴더-구조)
+- [사용 기술](#사용-기술)
+- [구현 기능](#구현-기능)
+- [콜라 아이템 정보](#콜라-아이템-정보)
+- [JavaScript 파일 모듈화](#javascript-파일-모듈화)
+- [콜라 버튼 생성 클래스](#콜라-버튼-생성-클래스-(colagenerator))
+- [자판기 이벤트 처리 클래스](#자판기-이벤트-처리-클래스-(vendingmachineevents))
+- [트러블 슈팅 ](#트러블-슈팅)
 
 <br>
 <br>
 
-## 구현 기간 배포 링크
+## 구현 기간 & 배포 링크
 
 > ### vending-machine : 콜라 자판기 만들기
 > `2023.04.30 ~ 2023.05.08` <br>
@@ -68,7 +71,7 @@
 
 - 입금 버튼 기능
 - 거스름돈 반환 버튼 기능
-- 자판기 장바구니 채우기
+- 자판기 장바구니 채우기 기능
 - 획득 버튼 기능
 - 나의 장바구니 콜라 생성
 
@@ -120,7 +123,7 @@
 <br>
 <br>
 
-## ⚙️ JavaScript 파일 모듈화
+## JavaScript 파일 모듈화
 클래스를 만들고 인스턴스를 생성한 후에 `index.js`에서 2개의 클래스를 임포트하고, `index.html`에 모듈로 연결한다.
 
 ### Why? 
@@ -136,7 +139,7 @@
 <br>
 <br>
 
-## 📜 콜라 버튼 생성 클래스 (ColaGenerator)
+## 콜라 버튼 생성 클래스 (ColaGenerator)
 ```js
 class ColaGenerator {
   constructor() {
@@ -228,7 +231,7 @@ export default ColaGenerator;
 <br>
 <br>
 
-## 📜 자판기 이벤트 처리 클래스 (VendingMachineEvents)
+## 자판기 이벤트 처리 클래스 (VendingMachineEvents)
 ### 0. DOM에서 필요한 요소들 선택해 클래스의 프로퍼티로 할당하기
 ```js
 constructor() {
@@ -429,4 +432,9 @@ stagedItemGenerator(target) {
   this.stagedList.append(stagedItem); // 구성된 <li> 요소를 장바구니 목록(this.stagedList)에 추가
 }
 ```
+
+<br>
+<br>
+
+## 트러블 슈팅
 
