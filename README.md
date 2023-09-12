@@ -274,6 +274,8 @@ bindEvent() { 1~4번 기능... } // 여러가지 이벤트 핸들러 기능을 �
 <br>
 
 ### 1. 입금 버튼 기능
+<br>
+
 <p align="center">
   <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/dfb203f2-9baa-4f05-b1ad-6c8ec34577d0">
 </p>
@@ -317,6 +319,8 @@ this.btnPut.addEventListener('click', () => {
 <br>
 
 ### 2. 거스름돈 반환 버튼 기능
+<br>
+
 <p align="center">
   <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/bec05125-57c4-4106-90bb-39f250301ed2">
 </p>
@@ -348,6 +352,8 @@ this.btnReturn.addEventListener('click', () => {
 <br>
 
 ### 3. 자판기 장바구니 채우기 기능
+<br>
+
 <p align="center">
   <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/8a3e15d9-c36f-4f61-99a5-951ab1307786">
 </p>
@@ -439,6 +445,8 @@ this.btnsCola.forEach((item) => {
 <br>
 
 ### 4. 획득 버튼 기능
+<br>
+
 <p align="center">
   <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/d5c838ce-97ae-4a43-9e72-16c36d8f6872">
 </p>
@@ -541,4 +549,129 @@ stagedItemGenerator(target) {
 <br>
 
 ## 트러블 슈팅
+### 1. 문제 발생
+- 스플래시 화면이 끝나고 바로 6개의 콜라가 생성되지 않고 버벅거리는 문제가 발생했다.
+<br>
+
+<p align="center">
+  <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/29250873-d4c5-4dd6-a6bc-a4f958b19105">
+</p>
+
+<br>
+
+#### 문제 코드
+```js
+// index.js
+
+import ColaGenerator from './classes/colaGenerator.js';
+import VendingMachineEvents from './classes/vendingMachineEvents.js';
+
+const colaGenerator = new ColaGenerator();
+const vendingMachineEvents = new VendingMachineEvents();
+
+// 스플래시 화면 나타내기
+const showSplash = () => {
+  const splashScreen = document.querySelector('.splash-screen');
+  splashScreen.style.display = 'block';
+};
+
+// 스플래시 화면 숨기기
+const hideSplash = () => {
+  const splashScreen = document.querySelector('.splash-screen');
+  splashScreen.style.display = 'none';
+};
+
+// 탑레벨 await : 최상위 모듈에서 실행되는 await
+const startApp = async () => {
+  // 스플래시 화면 나타내기
+  showSplash();
+
+  // 스플래시 화면 숨기기
+  setTimeout(async () => {
+    hideSplash();
+
+    // ColaGenerator 초기화
+    await colaGenerator.setup();
+
+    // VendingMachineEvents 이벤트 바인딩 및 앱 초기화
+    vendingMachineEvents.bindEvent();
+  }, 3000);
+};
+
+// 앱 초기화
+startApp();
+```
+<br>
+
+#### Why? 왜?
+1. 일단 이것저것 찾아보니, 비동기 작업으로 인해 `await colaGenerator.setup()` 코드는 비동기 함수인 `setup()`을 호출하고 이 작업이 완료될 때까지 콜라가 생성되지 않는다.
+
+2. 그리고 `colaGenerator.setup()` 내에서 DOM 요소를 생성하고 조작하는 작업도 시간이 걸릴 수 있을 것 같다.
+
+3. 결정적으로 `setTimeout` 함수를 사용해 3초 후에 `hideSplash()`와 콜라 생성 코드를 실행하기 때문에 이것도 `await`나 비동기 처리가 없어서 스플래시 화면을 숨기려고 `setTimeout`을 사용해도 다른 코드는 이미 비동기적으로 계속 실행되기 때문에 화면이 빨리 사라져서 콜라 생성에 문제가 된 것 같다.
+
+<br>
+
+### 2. 해결 과정
+#### How? 어떻게?
+`await`를 사용해 명시적으로 3초 동안 대기하도록 한다. 이렇게 하면 코드가 스플래시 화면을 표시한 후 3초 동안 대기하고, 그 후에 스플래시 화면을 숨기고 다음 작업을 진행한다.
+
+<br>
+
+#### 해결 코드
+```js
+// index.js
+import ColaGenerator from './classes/colaGenerator.js';
+import VendingMachineEvents from './classes/vendingMachineEvents.js';
+
+const colaGenerator = new ColaGenerator();
+const vendingMachineEvents = new VendingMachineEvents();
+
+// 스플래시 화면 나타내기
+const showSplash = () => {
+  const splashScreen = document.querySelector('.splash-screen');
+  splashScreen.style.display = 'block';
+};
+
+// 스플래시 화면 숨기기
+const hideSplash = () => {
+  const splashScreen = document.querySelector('.splash-screen');
+  splashScreen.style.display = 'none';
+};
+
+// 탑레벨 await : 최상위 모듈에서 실행되는 await
+const startApp = async () => {
+  try {
+    // 스플래시 화면 나타내기
+    showSplash();
+
+    // 3초 동안 스플래시 화면 유지
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    // ColaGenerator 초기화
+    await colaGenerator.setup();
+
+    // VendingMachineEvents 이벤트 바인딩 및 앱 초기화
+    vendingMachineEvents.bindEvent();
+  } catch {
+    console.error(error);
+  } finally {
+    // 스플래시 화면 숨기기
+    hideSplash();
+  }
+};
+
+// 앱 초기화
+startApp();
+```
+
+<br>
+
+### 3. 완성 결과물
+- 결과를 보면 이제 버벅거리는 현상없이 바로 콜라가 생성되고 있다!! 👍🏻😀
+<br>
+
+<p align="center">
+  <img src="https://github.com/hyeonbinnn/cola-cola/assets/117449788/70555dae-c2ca-44bc-a7f3-4c95d9d6a005">
+</p>
 
