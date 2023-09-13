@@ -262,7 +262,7 @@ constructor() {
 
 stagedItemGenerator() { 5번 기능... }
 
-bindEvent() { 1~4번 기능... } // 여러가지 이벤트 핸들러 기능을 수행하는 함수
+bindEvent() { 1~4번 기능... } // 여러가지 이벤트 핸들러 기능을 수행하는 메서드
 ```
 <br>
 
